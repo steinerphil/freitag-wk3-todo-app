@@ -32,6 +32,10 @@ public class TodoController {
     public void updateStatus(@PathVariable int id, @RequestBody TodoItem todoItem){
         todoService.updateStatus(id,todoItem.getStatus());
     }
+    @DeleteMapping("{id}")
+    public void deleteItem(@PathVariable int id){
+        todoService.deleteItem(id);
+    }
 
 
 }

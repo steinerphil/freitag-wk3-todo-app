@@ -31,4 +31,7 @@ public class TodoService {
     }
 
 
+    public void deleteItem(int id) {
+        todoRepo.deleteItem(id);
+    }
 }
