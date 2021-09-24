@@ -23,4 +23,12 @@ public class TodoService {
     public List<TodoItem> list() {
         return todoRepo.list();
     }
+
+    public void updateStatus(int id,String status) {
+      todoRepo
+              .getById(id)
+              .setStatus(status);
+    }
+
+
 }

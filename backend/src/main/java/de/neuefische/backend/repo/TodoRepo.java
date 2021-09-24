@@ -29,4 +29,8 @@ public class TodoRepo {
     public List<TodoItem> list() {
         return new ArrayList<>(todoDoing.values());
     }
+
+    public TodoItem getById(int id) {
+        return todoDoing.get(id);
+    }
 }
