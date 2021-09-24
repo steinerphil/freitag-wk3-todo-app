@@ -37,4 +37,7 @@ public class TodoRepo {
     public void deleteItem(int id) {
         todoRepo.remove(id);
     }
+    public void clear(){
+        todoRepo.clear();
+    }
 }

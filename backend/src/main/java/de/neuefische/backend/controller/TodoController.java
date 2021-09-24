@@ -23,7 +23,6 @@ public class TodoController {
         return todoService.list();
     }
 
-
     @PostMapping
     public TodoItem addToDoItem(@RequestBody TodoItem todoItem){
         return todoService.add(todoItem);
