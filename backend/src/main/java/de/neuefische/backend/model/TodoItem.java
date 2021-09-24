@@ -1,4 +1,4 @@
-package de.neuefische.backend.Model;
+package de.neuefische.backend.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,8 +9,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TodoItem {
     int id;
-    String title;
+    String description;
     String status;
+
+    public TodoItem(String description,String status){
+        this.description=description;
+        this.status=status;
+    }
 
 
 
