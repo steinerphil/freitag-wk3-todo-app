@@ -30,17 +30,17 @@ class TodoControllerTest {
         todoRepo.clear();
     }
 
-    private String URL="http://localhost:"+port;
+
 
     @Test
     void addToDoItemTest() {
         //Given
-
+        String URL="http://localhost:"+port+"/api/todo";
         //When
         ResponseEntity<TodoItem> response=testRestTemplate.postForEntity(URL,new TodoItem("Title","OPEN"),TodoItem.class);
         //Then
         assertThat(response.getStatusCode(),is(HttpStatus.OK));
-        assertThat(response.getBody(),is(new TodoItem("Title","OPEN")));
+        assertThat(response.getBody(),is(new TodoItem(1,"Title","OPEN")));
     }
 
     @Test
