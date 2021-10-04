@@ -1,57 +1,44 @@
 import './App.css';
 import KanbanSection from './components/KanbanSection';
 import jsonResponse from './response.json';
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import axios from "axios";
 
 function App() {
 
     const [text, setText] = useState([])
-
-
-    const response = jsonResponse;
-
-    let todo = [];
-    let progress = [];
-    let done = [];
-
-    function sortResponse(input) {
-        for (let i = 0; i < input.length; i++) {
-            if(input[i].status === "todo"){
-                todo.push(input[i])
-            }
-            if(input[i].status === "progress"){
-                progress.push(input[i])
-            }
-            if(input[i].status === "done"){
-                done.push(input[i])
-            }
-        }
-    }
+    const [open, setOpen] = useState([]);
+    const [progress, setProgress] = useState([]);
+    const [done, setDone] = useState([]);
 
     const handleInput = (action) => {
         let string = action.target.value;
         setText(string);
     }
 
-    sortResponse(response);
-
-    // useEffect(() => {
-    //     axios.post('/api/todo', text).then(r => todo.push(r) )
-    // })
-
     const handleSubmit = () => {
-        axios.post('/api/todo', text).then(r => todo.push(r) )
+        const newTodo = {
+            "status" : "OPEN",
+            "description" : text
+        }
+        axios.post('/api/todo', newTodo)
+            .then(r => setOpen([...open, r.data]))
+            .catch(console.log)
+    }
+
+    function test(){
+        console.log(open)
     }
 
     return (
         <div className="App">
             <h1>To-Do-App</h1>
-            <KanbanSection content={todo} title="todos"/>
-            <KanbanSection content={progress} title="progress"/>
-            <KanbanSection content={done} title="done"/>
+            <KanbanSection content={open} />
+            <KanbanSection content={progress} />
+            <KanbanSection content={done} />
             <input type="text" placeholder="Type your todo here" onInput={handleInput}/>
-            <button onClick={handleSubmit}>Submit</button>
+            <button type="submit" onClick={handleSubmit}>Add</button>
+            <button type="submit" onClick={test}>test</button>
         </div>
     );
 }
