@@ -1,15 +1,15 @@
 import './KanbanSection.css';
 import Entry from "./Entry";
 
-export default function KanbanSection({content}) {
+export default function KanbanSection(props) {
 
     return (
         <div className={"kanban"}>
-            <h4>test</h4>
+            <h4>{props.name}</h4>
             <hr/>
             <div>
                 {
-                    content.map(item => <Entry title={item.description}/>)
+                    props.content.map(item => <Entry item={item} />)
                 }
             </div>
 

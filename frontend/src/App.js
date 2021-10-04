@@ -47,6 +47,8 @@ function App() {
 
 
 
+
+
     function test(){
         console.log(open)
         console.log(progress)
@@ -57,9 +59,9 @@ function App() {
     return (
         <div className="App">
             <h1>To-Do-App</h1>
-            <KanbanSection content={open} />
-            <KanbanSection content={progress} />
-            <KanbanSection content={done} />
+            <KanbanSection content={open} name="Open"/>
+            <KanbanSection content={progress} name="Progress" />
+            <KanbanSection content={done} name="Done"/>
             <input type="text" placeholder="Type your todo here" onInput={handleInput}/>
             <button type="submit" onClick={handleSubmit}>Add</button>
             <button type="submit" onClick={test}>test</button>
