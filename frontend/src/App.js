@@ -2,6 +2,7 @@ import './App.css';
 import KanbanSection from './components/KanbanSection';
 import {useEffect, useState} from "react";
 import axios from "axios";
+import {getData, postData} from "./ApiService";
 
 function App() {
 
@@ -9,7 +10,6 @@ function App() {
     const [open, setOpen] = useState([]);
     const [progress, setProgress] = useState([]);
     const [done, setDone] = useState([]);
-    const [allItems, setAllItems] = useState([])
 
    function handleSetProgress(newValue){
       setProgress([...progress, newValue]);
@@ -33,30 +33,24 @@ function App() {
        setProgress(progressA)
    }
 
-
-
     const handleInput = (action) => {
         let string = action.target.value;
         setInput(string);
     }
 
     const handleSubmit = () => {
-        const newTodo = {
-            "status" : "OPEN",
-            "description" : input
-        }
-        axios.post('/api/todo', newTodo)
-            .then(r => setOpen([...open, r.data]))
-            .catch(console.log)
+       postData(input).then(data => setOpen([...open, data]))
         setInput([])
     }
 
-    useEffect(() => {
-        axios.get('/api/todo').then(response =>{
-            setAllItems(response.data)
-            sortItems(response.data)
-        } )
+    function handleDelete(item) {
+        setDone(done.filter(entry => entry.id !== item.id))
+    }
 
+    useEffect(() => {
+        getData().then(data => {
+            sortItems(data);
+        })
     }, [])
 
 
@@ -78,10 +72,6 @@ function App() {
         setOpen(openA);
         setProgress(progressA);
         setDone(doneA);
-    }
-
-    function handleDelete(item) {
-        setDone(done.filter(entry => entry.id !== item.id))
     }
 
     return (
