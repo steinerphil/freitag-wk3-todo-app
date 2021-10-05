@@ -12,3 +12,12 @@ export const postData = (input) => {
    return axios.post('/api/todo', newTodo)
         .then(r => r.data)
 }
+
+export const putData = (itemToUpdate) => {
+    return axios.put('/api/todo/' + itemToUpdate.id, itemToUpdate)
+}
+
+export const deleteData = (itemToUpdate) => {
+   return axios.delete('/api/todo/' + itemToUpdate.id)
+
+}

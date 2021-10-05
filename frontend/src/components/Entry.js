@@ -1,5 +1,5 @@
 import "./Entry.css";
-import axios from "axios";
+import {deleteData, putData} from "../ApiService";
 
 export default function Entry(props) {
 
@@ -12,15 +12,12 @@ export default function Entry(props) {
             } else if (itemToUpdate.status === 'IN_PROGRESS') {
                 itemToUpdate.status = 'DONE'
             }
-            axios.put('/api/todo/' + itemToUpdate.id, itemToUpdate).then(
-                props.onClick(itemToUpdate)
-
-            )
+            putData(itemToUpdate)
+                .then(props.onClick(itemToUpdate))
         }
         else{
-            axios.delete('/api/todo/' + itemToUpdate.id)
+            deleteData(itemToUpdate)
                 .then(props.onClick(itemToUpdate))
-            // console.log(`Item with title ${itemToUpdate.description} deleted`)
         }
     }
 

@@ -1,7 +1,6 @@
 import './App.css';
 import KanbanSection from './components/KanbanSection';
 import {useEffect, useState} from "react";
-import axios from "axios";
 import {getData, postData} from "./ApiService";
 
 function App() {
