@@ -81,7 +81,7 @@ function App() {
     }
 
     function handleDelete(item) {
-
+        setDone(done.filter(entry => entry.id !== item.id))
     }
 
     return (
