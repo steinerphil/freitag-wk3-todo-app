@@ -24,10 +24,11 @@ public class TodoService {
         return todoRepo.list();
     }
 
-    public void updateStatus(int id,String status) {
+    public TodoItem updateStatus(int id,String status) {
       todoRepo
               .getById(id)
               .setStatus(status);
+      return todoRepo.getById(id);
     }
 
 

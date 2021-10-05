@@ -29,8 +29,8 @@ public class TodoController {
     }
 
     @PutMapping("{id}")
-    public void updateStatus(@PathVariable int id, @RequestBody TodoItem todoItem){
-        todoService.updateStatus(id,todoItem.getStatus());
+    public TodoItem updateStatus(@PathVariable int id, @RequestBody TodoItem todoItem){
+       return todoService.updateStatus(id,todoItem.getStatus());
     }
     @DeleteMapping("{id}")
     public void deleteItem(@PathVariable int id){

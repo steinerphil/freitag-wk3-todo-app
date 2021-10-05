@@ -1,9 +1,10 @@
 .kanban{
-    display: flex;
+    display: table-cell;
     flex-direction: column;
-    border: 2px solid black;
+    border: 1px solid black;
     margin: 30px;
     text-align: center;
+    width: 10%;
 }
 
 hr{

@@ -11,6 +11,30 @@ function App() {
     const [done, setDone] = useState([]);
     const [allItems, setAllItems] = useState([])
 
+   function handleSetProgress(newValue){
+      setProgress([...progress, newValue]);
+      let openA = open;
+       for (let i = 0; i < openA.length ; i++) {
+           if(openA[i].id === newValue.id){
+               openA.splice(i, 1);
+           }
+       }
+      setOpen(openA)
+   }
+
+   function handleSetDone(newValue) {
+        setDone([...done, newValue]);
+       let progressA = progress;
+       for (let i = 0; i < progressA.length ; i++) {
+           if(progressA[i].id === newValue.id){
+               progressA.splice(i, 1);
+           }
+       }
+       setProgress(progressA)
+   }
+
+
+
     const handleInput = (action) => {
         let string = action.target.value;
         setInput(string);
@@ -24,47 +48,52 @@ function App() {
         axios.post('/api/todo', newTodo)
             .then(r => setOpen([...open, r.data]))
             .catch(console.log)
+        setInput([])
     }
 
     useEffect(() => {
-        axios.get('/api/todo').then(response => setAllItems(response.data))
+        axios.get('/api/todo').then(response =>{
+            setAllItems(response.data)
+            sortItems(response.data)
+        } )
+
     }, [])
 
-    useEffect(() => {
+
+    function sortItems(allItems) {
+        let openA = [];
+        let progressA = [];
+        let doneA = [];
         for (let i = 0; i < allItems.length ; i++) {
-            console.log(allItems[i].status)
             if(allItems[i].status === "OPEN"){
-                open.push(allItems[i]);
+                openA.push(allItems[i]);
             }
             if(allItems[i].status === "IN_PROGRESS"){
-                progress.push(allItems[i])
+                progressA.push(allItems[i])
             }
             if(allItems[i].status === "DONE"){
-                done.push(allItems[i])
+                doneA.push(allItems[i])
             }
         }
-    }, [allItems])
+        setOpen(openA);
+        setProgress(progressA);
+        setDone(doneA);
+    }
 
+    function handleDelete(item) {
 
-
-
-
-    function test(){
-        console.log(open)
-        console.log(progress)
-        console.log(done)
-        console.log(allItems)
     }
 
     return (
-        <div className="App">
+        <div className="app">
             <h1>To-Do-App</h1>
-            <KanbanSection content={open} name="Open"/>
-            <KanbanSection content={progress} name="Progress" />
-            <KanbanSection content={done} name="Done"/>
-            <input type="text" placeholder="Type your todo here" onInput={handleInput}/>
-            <button type="submit" onClick={handleSubmit}>Add</button>
-            <button type="submit" onClick={test}>test</button>
+            <KanbanSection content={open} name="Open" onClick={handleSetProgress}/>
+            <KanbanSection content={progress} name="Progress" onClick={handleSetDone}/>
+            <KanbanSection content={done} name="Done" onClick={handleDelete}/>
+            <div className="action_fields">
+                <input type="text" placeholder="Type your todo here" value={input} onInput={handleInput}/>
+                <button type="submit" onClick={handleSubmit}>Add</button>
+            </div>
         </div>
     );
 }
