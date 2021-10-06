@@ -24,7 +24,9 @@ export default function Entry(props) {
     return(
         <div className="todo_item">
             <p>{props.item.description}</p>
-            <button onClick={handleClick}>Click me</button>
+            {props.item.status === "DONE" && <button onClick={handleClick}>Delete</button>}
+            {props.item.status === "OPEN" && <button onClick={handleClick}>Start</button>}
+            {props.item.status === "IN_PROGRESS" && <button onClick={handleClick}>Finish</button>}
         </div>
 
 

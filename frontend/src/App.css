@@ -2,6 +2,28 @@
     margin: 10%;
 }
 
+h1{
+    text-align: center;
+}
+
 .action_fields{
     margin-top: 1em;
+}
+
+.navbar{
+    margin: 2em 2em;
+}
+
+.navitem{
+    display: flex;
+}
+
+ul{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.is-active{
+    font-weight: bold;
+    color: red;
 }
