@@ -11,13 +11,13 @@ export default function Navigation() {
                     <NavLink activeClassName='is-active' to="/" exact>Kanban</NavLink>
                 </li>
                 <li className="navitem">
-                    <NavLink activeClassName='is-active' to="/open">Open</NavLink>
+                    <NavLink activeClassName='is-active' to="/todo/open">Open</NavLink>
                 </li>
                 <li className="navitem">
-                    <NavLink activeClassName='is-active' to="/progress">Progress</NavLink>
+                    <NavLink activeClassName='is-active' to="/todo/progress">Progress</NavLink>
                 </li>
                 <li className="navitem">
-                    <NavLink activeClassName='is-active' to="/done">Done</NavLink>
+                    <NavLink activeClassName='is-active' to="/todo/done">Done</NavLink>
                 </li>
             </ul>
         </nav>
