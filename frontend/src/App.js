@@ -7,8 +7,9 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link, NavLink
+    Link,
 } from "react-router-dom";
+import Navigation from "./components/Navigation";
 
 function App() {
 
@@ -81,14 +82,6 @@ function App() {
         setInput([])
     }
 
-    const handleKeypress = e => {
-        //it triggers by pressing the enter key
-        if (e.keyCode === 13) {
-            handleSubmit();
-        }
-    };
-
-
     function handleDelete(item) {
         setDone(done.filter(entry => entry.id !== item.id))
     }
@@ -99,24 +92,7 @@ function App() {
         <Router>
             <div className="app">
                 <h1>To-Do-App</h1>
-                <hr/>
-                <nav className="navbar">
-                    <ul>
-                        <li className="navitem">
-                            <NavLink activeClassName='is-active' to="/" exact>Kanban</NavLink>
-                        </li>
-                        <li className="navitem">
-                            <NavLink activeClassName='is-active' to="/open">Open</NavLink>
-                        </li>
-                        <li className="navitem">
-                            <NavLink activeClassName='is-active' to="/progress">Progress</NavLink>
-                        </li>
-                        <li className="navitem">
-                            <NavLink activeClassName='is-active' to="/done">Done</NavLink>
-                        </li>
-                    </ul>
-                </nav>
-                <hr/>
+                <Navigation/>
                 <Switch>
                     <Route path="/" exact>
                         <KanbanSection content={open} name="Open" onClick={handleSetProgress}/>
@@ -125,29 +101,22 @@ function App() {
                         <CreateTodoFields
                             input={input}
                             handleInput={handleInput}
-                            handleSubmit={handleSubmit}
-                            handleKeyPress={handleKeypress}/>
+                            handleSubmit={handleSubmit}/>
                     </Route>
                     <Route path="/open">
-                        {open.length === 0 &&
-                        <p>No todos in status open. Create one:
-                            <CreateTodoFields
-                                input={input}
-                                handleInput={handleInput}
-                                handleSubmit={handleSubmit}
-                                handleKeyPress={handleKeypress}
-                            />
-                        </p>
-                        }
+                        {open.length === 0 && <p>No todos in status open. Create one:</p>}
+                        {open.length === 0 && <CreateTodoFields
+                            input={input}
+                            handleInput={handleInput}
+                            handleSubmit={handleSubmit}
+                        />}
                         {open.length > 0 && <KanbanSection content={open} name="Open" onClick={handleSetProgress}/>}
-                        {open.length > 0 && <p>Create another one:
-                            <CreateTodoFields
-                                input={input}
-                                handleInput={handleInput}
-                                handleSubmit={handleSubmit}
-                                handleKeyPress={handleKeypress}
-                            />
-                        </p>}
+                        {open.length > 0 && <p>Create another one:</p>}
+                        {open.length > 0 && <CreateTodoFields
+                            input={input}
+                            handleInput={handleInput}
+                            handleSubmit={handleSubmit}
+                        />}
                     </Route>
                     <Route path="/progress">
                         {progress.length === 0 && <p>No todos in progress, <Link to="/open">grab one!</Link></p>}
@@ -156,7 +125,8 @@ function App() {
                         {progress.length > 0 && <Link to="/open"> -> grab another one! </Link>}
                     </Route>
                     <Route path="/done">
-                        {done.length === 0 && <p>Nothing is done today :(<Link to="/progress"> ...finish a progress</Link></p>}
+                        {done.length === 0 &&
+                        <p>Nothing is done today :(<Link to="/progress"> ...finish a progress</Link></p>}
                         {done.length > 0 && <KanbanSection content={done} name="Done" onClick={handleDelete}/>}
                     </Route>
 

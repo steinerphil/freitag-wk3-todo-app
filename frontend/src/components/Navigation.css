@@ -1,0 +1,18 @@
+
+.navbar{
+    margin: 2em 2em;
+}
+
+.navitem{
+    display: flex;
+}
+
+.is-active{
+    font-weight: bold;
+    color: red;
+}
+
+ul{
+    display: flex;
+    justify-content: space-evenly;
+}
