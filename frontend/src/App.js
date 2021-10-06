@@ -1,6 +1,4 @@
 import './App.css';
-import KanbanSection from './components/KanbanSection';
-import CreateTodoFields from './components/CreateTodoFields'
 import {useEffect, useState} from "react";
 import {getData, postData} from "./ApiService";
 import {
@@ -10,6 +8,7 @@ import {
     Link,
 } from "react-router-dom";
 import Navigation from "./components/Navigation";
+import KanbanBoard from "./components/KanbanBoard";
 
 function App() {
 
@@ -93,44 +92,18 @@ function App() {
             <div className="app">
                 <h1>To-Do-App</h1>
                 <Navigation/>
-                <Switch>
-                    <Route path="/" exact>
-                        <KanbanSection content={open} name="Open" onClick={handleSetProgress}/>
-                        <KanbanSection content={progress} name="Progress" onClick={handleSetDone}/>
-                        <KanbanSection content={done} name="Done" onClick={handleDelete}/>
-                        <CreateTodoFields
-                            input={input}
-                            handleInput={handleInput}
-                            handleSubmit={handleSubmit}/>
-                    </Route>
-                    <Route path="/open">
-                        {open.length === 0 && <p>No todos in status open. Create one:</p>}
-                        {open.length === 0 && <CreateTodoFields
-                            input={input}
-                            handleInput={handleInput}
-                            handleSubmit={handleSubmit}
-                        />}
-                        {open.length > 0 && <KanbanSection content={open} name="Open" onClick={handleSetProgress}/>}
-                        {open.length > 0 && <p>Create another one:</p>}
-                        {open.length > 0 && <CreateTodoFields
-                            input={input}
-                            handleInput={handleInput}
-                            handleSubmit={handleSubmit}
-                        />}
-                    </Route>
-                    <Route path="/progress">
-                        {progress.length === 0 && <p>No todos in progress, <Link to="/open">grab one!</Link></p>}
-                        {progress.length > 0 &&
-                        <KanbanSection content={progress} name="Progress" onClick={handleSetDone}/>}
-                        {progress.length > 0 && <Link to="/open"> -> grab another one! </Link>}
-                    </Route>
-                    <Route path="/done">
-                        {done.length === 0 &&
-                        <p>Nothing is done today :(<Link to="/progress"> ...finish a progress</Link></p>}
-                        {done.length > 0 && <KanbanSection content={done} name="Done" onClick={handleDelete}/>}
-                    </Route>
+                <KanbanBoard
+                    handleSetProgress={handleSetProgress}
+                    handleSetDone={handleSetDone}
+                    handleDelete={handleDelete}
+                    handleInput={handleInput}
+                    handleSubmit={handleSubmit}
+                    input={input}
+                    open={open}
+                    progress={progress}
+                    done={done}
 
-                </Switch>
+                />
             </div>
         </Router>
     );
