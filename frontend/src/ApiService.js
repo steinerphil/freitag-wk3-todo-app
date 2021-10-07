@@ -4,6 +4,10 @@ export const getData = () => {
     return axios.get('/api/todo').then(r => r.data)
 }
 
+export const getById = (id) => {
+    return axios.get('/api/todo/' + id).then(r => r.data)
+}
+
 export const postData = (input) => {
     const newTodo = {
         "status" : "OPEN",

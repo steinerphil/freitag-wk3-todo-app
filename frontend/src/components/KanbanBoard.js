@@ -1,6 +1,7 @@
 import KanbanSection from './KanbanSection';
-import {Link, Route, Switch, useParams} from "react-router-dom";
+import {Link, Route, Switch} from "react-router-dom";
 import CreateTodoFields from "./CreateTodoFields";
+import DetailsPage from "./DetailsPage";
 
 export default function KanbanBoard({handleSetProgress, handleSetDone, handleDelete, handleInput, handleSubmit, input, open, progress, done}) {
 
@@ -60,6 +61,10 @@ export default function KanbanBoard({handleSetProgress, handleSetDone, handleDel
                 {done.length === 0 &&
                 <p>Nothing is done today :(<Link to="/progress"> ...finish a progress</Link></p>}
                 {done.length > 0 && <KanbanSection content={done} name="Done" onClick={handleDelete}/>}
+            </Route>
+
+            <Route path={"/details/:id"}>
+                <DetailsPage/>
             </Route>
 
 

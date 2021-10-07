@@ -1,35 +1,35 @@
 import "./Entry.css";
 import {deleteData, putData} from "../ApiService";
+import {useHistory} from "react-router-dom";
 
-export default function Entry(props) {
+export default function Entry({item, onClick}) {
+
+    const history = useHistory();
 
     function handleClick() {
-        let itemToUpdate = props.item;
-
-        if(itemToUpdate.status !== "DONE") {
-            if (itemToUpdate.status === 'OPEN') {
-                itemToUpdate.status = 'IN_PROGRESS'
-            } else if (itemToUpdate.status === 'IN_PROGRESS') {
-                itemToUpdate.status = 'DONE'
+        let status = item.status;
+        if (status !== "DONE") {
+            if (status === 'OPEN') {
+                status = 'IN_PROGRESS'
+            } else if (status === 'IN_PROGRESS') {
+                status = 'DONE'
             }
-            putData(itemToUpdate)
-                .then(props.onClick(itemToUpdate))
-        }
-        else{
-            deleteData(itemToUpdate)
-                .then(props.onClick(itemToUpdate))
+            putData(status)
+                .then(onClick(item))
+        } else {
+            deleteData(status)
+                .then(onClick(item))
         }
     }
 
-    return(
+    return (
         <div className="todo_item">
-            <p>{props.item.description}</p>
-            {props.item.status === "DONE" && <button onClick={handleClick}>Delete</button>}
-            {props.item.status === "OPEN" && <button onClick={handleClick}>Start</button>}
-            {props.item.status === "IN_PROGRESS" && <button onClick={handleClick}>Finish</button>}
+            <p>{item.description}</p>
+            {item.status === "DONE" && <button onClick={handleClick}>Delete</button>}
+            {item.status === "OPEN" && <button onClick={handleClick}>Start</button>}
+            {item.status === "IN_PROGRESS" && <button onClick={handleClick}>Finish</button>}
+            <button onClick={() => history.push(`/details/${item.id}`)}>Details</button>
         </div>
-
-
     )
 
 }
