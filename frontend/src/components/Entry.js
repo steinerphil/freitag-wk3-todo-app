@@ -1,6 +1,12 @@
 import "./Entry.css";
 import {deleteData, putData} from "../ApiService";
 import {useHistory} from "react-router-dom";
+import PropTypes from "prop-types"
+
+Entry.propTypes = {
+    item: PropTypes.shape({id: PropTypes.number, description: PropTypes.string}),
+    onClick: PropTypes.func,
+}
 
 export default function Entry({item, onClick}) {
 
