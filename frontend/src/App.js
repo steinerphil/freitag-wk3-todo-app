@@ -1,62 +1,33 @@
-import styled from 'styled-components/macro'
-import AppHeader from './components/AppHeader'
-import NewTodo from './components/NewTodo'
-import Boards from './components/Boards'
-import { useEffect, useState } from 'react'
-import axios from 'axios'
+import './App.css';
+import {BrowserRouter as Router} from "react-router-dom";
+import Navigation from "./components/Navigation";
+import KanbanBoard from "./components/KanbanBoard";
+import useTodos from "./Hooks/UseTodos";
 
-const nextStatus = {
-  OPEN: 'IN_PROGRESS',
-  IN_PROGRESS: 'DONE',
+function App() {
+
+    const {handleSetProgress, handleSubmit, handleInput, handleDelete, handleSetDone, input, open, progress, done} = useTodos()
+
+    return (
+        <Router>
+            <div className="app">
+                <h1>To-Do-App</h1>
+                <Navigation/>
+                <KanbanBoard
+                    handleSetProgress={handleSetProgress}
+                    handleSetDone={handleSetDone}
+                    handleDelete={handleDelete}
+                    handleInput={handleInput}
+                    handleSubmit={handleSubmit}
+                    input={input}
+                    open={open}
+                    progress={progress}
+                    done={done}
+
+                />
+            </div>
+        </Router>
+    );
 }
 
-export default function App() {
-  const [todos, setTodos] = useState([])
-
-  const fetchTodos = () =>
-    axios
-      .get('/api/todo')
-      .then(response => setTodos(response.data))
-      .catch(console.error)
-
-  useEffect(() => {
-    axios
-      .get('/api/todo')
-      .then(response => setTodos(response.data))
-      .catch(console.error)
-  }, [])
-
-  const advanceTodo = todo => {
-    const advancedTodo = { ...todo, status: nextStatus[todo.status] }
-    axios
-      .put(`/api/todo/${todo.id}`, advancedTodo)
-      .then(fetchTodos)
-      .catch(console.error)
-  }
-
-  const deleteTodo = id =>
-    axios.delete(`/api/todo/${id}`).then(fetchTodos).catch(console.error)
-
-  const addTodo = description => {
-    const todo = { description, status: 'OPEN' }
-    axios.post('/api/todo', todo).then(fetchTodos).catch(console.error)
-  }
-
-  return (
-    <PageLayout>
-      <AppHeader />
-      <Boards todos={todos} onAdvance={advanceTodo} onDelete={deleteTodo} />
-      <NewTodo onAdd={addTodo} />
-    </PageLayout>
-  )
-}
-
-const PageLayout = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: grid;
-  grid-template-rows: min-content 1fr min-content;
-`
+export default App;

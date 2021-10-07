@@ -16,6 +16,7 @@ public class TodoService {
         this.todoRepo = todoRepo;
     }
 
+
     public TodoItem add(TodoItem todoItem){
         return todoRepo.add(todoItem);
     }
@@ -24,12 +25,16 @@ public class TodoService {
         return todoRepo.list();
     }
 
-    public void updateStatus(int id,String status) {
+    public TodoItem updateStatus(int id,String status) {
       todoRepo
               .getById(id)
               .setStatus(status);
+      return todoRepo.getById(id);
     }
 
+    public TodoItem getById(int id){
+        return todoRepo.getById(id);
+    }
 
     public void deleteItem(int id) {
         todoRepo.deleteItem(id);

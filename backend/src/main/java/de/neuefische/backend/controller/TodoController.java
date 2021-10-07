@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/todo")
+@RequestMapping("/api/todo")
 public class TodoController {
 
    private TodoService todoService;
@@ -23,13 +23,19 @@ public class TodoController {
         return todoService.list();
     }
 
+    @GetMapping("{id}")
+    public TodoItem getTodoItemById(@PathVariable int id){
+        return todoService.getById(id);
+    }
+
     @PostMapping
     public TodoItem addToDoItem(@RequestBody TodoItem todoItem){
         return todoService.add(todoItem);
     }
+
     @PutMapping("{id}")
     public void updateStatus(@PathVariable int id, @RequestBody TodoItem todoItem){
-        todoService.updateStatus(id,todoItem.getStatus());
+       todoService.updateStatus(id,todoItem.getStatus());
     }
     @DeleteMapping("{id}")
     public void deleteItem(@PathVariable int id){
