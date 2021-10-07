@@ -9,7 +9,7 @@ export default function KanbanSection(props) {
             <hr/>
             <div>
                 {
-                    props.content.map(item => <Entry item={item} onClick={props.onClick} />)
+                    props.content.map(item => <Entry item={item} onClick={props.onClick} key={item.id} />)
                 }
             </div>
 

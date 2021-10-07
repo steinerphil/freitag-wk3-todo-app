@@ -2,6 +2,7 @@ import "./Entry.css";
 import {deleteData, putData} from "../ApiService";
 import {useHistory} from "react-router-dom";
 import PropTypes from "prop-types"
+import {useState} from "react";
 
 Entry.propTypes = {
     item: PropTypes.shape({id: PropTypes.number, description: PropTypes.string}),
@@ -13,18 +14,18 @@ export default function Entry({item, onClick}) {
     const history = useHistory();
 
     function handleClick() {
-        let status = item.status;
-        if (status !== "DONE") {
-            if (status === 'OPEN') {
-                status = 'IN_PROGRESS'
-            } else if (status === 'IN_PROGRESS') {
-                status = 'DONE'
+        let moveItem = item;
+        if (moveItem.status !== "DONE") {
+            if (moveItem.status === 'OPEN') {
+                moveItem.status = 'IN_PROGRESS'
+            } else if (moveItem.status === 'IN_PROGRESS') {
+                moveItem.status = 'DONE'
             }
-            putData(status)
-                .then(onClick(item))
+            putData(moveItem)
+                .then(onClick(moveItem))
         } else {
-            deleteData(status)
-                .then(onClick(item))
+            deleteData(moveItem)
+                .then(onClick(moveItem))
         }
     }
 

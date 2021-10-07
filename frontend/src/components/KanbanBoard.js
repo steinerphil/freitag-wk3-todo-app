@@ -17,7 +17,8 @@ export default function KanbanBoard({handleSetProgress, handleSetDone, handleDel
                 <CreateTodoFields
                     input={input}
                     handleInput={handleInput}
-                    handleSubmit={handleSubmit}/>
+                    handleSubmit={handleSubmit}
+                />
             </Route>
 
 

@@ -63,7 +63,8 @@ export default function useTodos() {
         setInput(string);
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault() //prevent html to reload the page after firing submit in <form> tag
         postData(input).then(data => setOpen([...open, data]))
         setInput([])
     }
@@ -73,6 +74,6 @@ export default function useTodos() {
     }
 
 
-    return {handleSetProgress, handleSubmit, handleInput, handleDelete, handleSetDone, input, open, progress, done}
+    return {handleSetProgress, handleSubmit, handleInput, handleDelete, handleSetDone ,input, open, progress, done}
 
 }

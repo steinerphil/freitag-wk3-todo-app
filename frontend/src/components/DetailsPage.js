@@ -11,6 +11,7 @@ export default function DetailsPage(){
     useEffect(() => {
         getById(id).then(data => setItem(data))
             .catch(error => console.log(error))
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return(

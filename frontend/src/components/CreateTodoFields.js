@@ -1,7 +1,10 @@
 export default function CreateTodoFields(props) {
-    return (<div className="action_fields">
-        <input type="text" placeholder="Type your todo here" value={props.input} onInput={props.handleInput}/>
-        <button type="submit" onClick={props.handleSubmit}>Add</button>
-    </div>)
+
+    return (
+        <form className="action_fields" onSubmit={props.handleSubmit}>
+            <input type="text" placeholder="Type your todo here" value={props.input} onInput={props.handleInput}/>
+            <button type="submit">Add</button>
+        </form>
+    )
 
 }
